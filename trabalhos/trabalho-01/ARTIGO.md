@@ -3,6 +3,7 @@
 # Introdução
 Lua é uma linguagem de programação de alto nível, interpretada, *open source* e de fácil aprendizado. De acordo com seu [site oficial][SiteOf]:
 >Lua é uma linguagem poderosa, rápida e leve, projetada para estender aplicações.
+
 # Origens e Influências
 Lua foi criado por uma equipe de desenvolvedores da [Tecgraf](http://www.tecgraf.puc-rio.br/pt/index.html) (Grupo de Tecnologia em Computação Gráfica) da [PUC-Rio](http://www.puc-rio.br/index.html) (Pontifícia Universidade Católica do Rio de Janeiro) em 1993. Ela sofreu influência de inúmeras linguagens, dentre elas: 
 * Lisp
