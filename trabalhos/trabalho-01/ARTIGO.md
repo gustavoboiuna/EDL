@@ -19,7 +19,9 @@ Todo o desenvolvimento da linguagem teve como base duas outras linguagens que er
 # Classificação
 Lua é uma linguagem imperativa, procedural, tipada dinamicamente. É multi-paradigma e portanto pode ser utilizada em diversos paradigmas diferentes, como: programação orientada a objetos, imperativa, funcional e reflexiva.  
 # Avaliação Comparativa
-Sua semântica extensível é um de seus pontos fortes, do qual podem serem adicionadas novas funcionalidades sem alterar características anteriores. Lua é usada principalmente em aplicações industriais (como o Adobe's Photoshop Lightroom), com ênfase em sistemas embutidos (como o *middleware* Ginga para TV digital) e jogos (como *World of Warcraft* e *Angry Birds*). Lua tem como seu ponto principal a portabilidade de seus programas e a fácil integração com outras linguagens de programação, servindo como potencializador de outros programas já existentes.
+Sua semântica extensível é um de seus pontos fortes, do qual podem serem adicionadas novas funcionalidades sem alterar características anteriores. Lua é usada principalmente em aplicações industriais (como o Adobe's Photoshop Lightroom), com ênfase em sistemas embutidos (como o *middleware* Ginga para TV digital) e jogos (como *World of Warcraft* e *Angry Birds*). Lua tem como seu ponto principal a portabilidade de seus programas e a fácil integração com outras linguagens de programação, servindo como potencializador de outros programas já existentes. Em comparação com outras linguagens de nível de abstração maior como C, Lua possui maior simplicidade em sua escrita. Com variáveis sem tipos definidos inicialmente e que podem ser modificados ao longo da execução. Além disso, por padrão, toda variável é global. Facilitando o acesso por outras partes do programa e o desenvolvimento em geral. Porém, essa mesma faceta pode atrapalhar a legibílidade do programa, por possuir poucas regras e paradigmas pré-estabelecidos que serviriam de guia para uma melhor e mais rápida leitura e entendimento do programa. Um dos diferenciais de Lua é que ela possúi atribuição múltipla, o que além de permitir mais facilidade na atribuição de valores a variáveis também permite fazer a troca de valores entre variáveis em apenas uma linha de código, como exemplificado na imagem abaixo, que compara uma troca em Pascal, C e Lua:
+![tabelaComparacao](http://ned.unifenas.br/cursosgratuitos/201402/lua/img/comparar.png)  
+É possível dizer portanto que o poder de expressividade apresentado por Lua é deixado um pouco de lado em detrenimento da facilidade apresentada por outros fatores, como os examinados acima.
 # Exemplos de Código Representativos
 * **Hello World**:  
 ```
@@ -72,5 +74,7 @@ setmetatable(fibs, {
 * Wikipédia: https://pt.wikipedia.org/wiki/Lua_(linguagem_de_programa%C3%A7%C3%A3o)
 * Wikipedia (em inglês): https://en.wikipedia.org/wiki/Lua_(programming_language)
 * Site Oficial da Linguagem: http://www.lua.org/portugues.html
+* Comparativo entre Lua e GO: http://pt.slideshare.net/gpolo/comparativo-entre-go-e-lua
+* Comparação entre Lua e Javascript: https://aleteia.wordpress.com/2011/08/28/comparacao-entre-lua-e-javascript/
 
 [SiteOf]: http://www.lua.org/portugues.html
