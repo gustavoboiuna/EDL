@@ -17,5 +17,5 @@ end
 
 function love.draw()
   love.graphics.draw(dor, x, y)
-  love.graphics.print("Nunca sofri tanto pra arrumar um ambiente de desenvolvimento na vida",fraseX, fraseY)
+  love.graphics.print(frase,fraseX, fraseY)
 end
