@@ -27,6 +27,10 @@ function Block:draw()
 		self.x + Block.width/2, self.y + Block.height/2,
 		self.x - Block.width/2, self.y + Block.height/2)
 end
+-- Nome: operador "+"
+-- Propriedade: valor da instrução em baixo nível
+-- Binding time: compile
+-- Explicação: A instrução de adição varia de acordo com os tipos dos termos que serão somados (e.g int, double, float etc). Dessa forma, a sua instrução é definida em tempo de compilação.
 
 -- Set the color of the block based on its column
 function Block:setColor()
