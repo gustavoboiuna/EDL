@@ -1,0 +1,14 @@
+Coleção: variável blocks
+Escopo: Variável local "Manager".
+Tempo de vida: Os blocos (instâncias de "Block" armazenadas no array
+"blocks") tem como tempo de vida desde sua inicialização inicial no
+começo do programa, até serem acertadas pela bola ou até a bola sair
+da tela. Caso esse último aconteça, todos os blocos serão instanciados
+novamente e terão seu tempo de vida reiniciado.
+Alocação: A alocação de blocks é feita assim que o programa é
+iniciado, junto a variável "Manager". Seus objetos são instanciados e
+alocados a cada chamada da função "load" de "Manager" feita.
+Desalocação: Quando um bloco é acertado pela bola ele é removido do
+array, e assim, desalocado. O mesmo ocorre quando a bola sai da tela e
+novos blocos são alocados. Para tanto, os antigos antes são
+desalocados.
