@@ -7928,16 +7928,28 @@ var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProg
 var _user$project$Main$p3 = A2(
 	_user$project$Main$Seq,
 	A2(
-		_user$project$Main$Attr,
-		'x',
-		_user$project$Main$Inteiro(11)),
+		_user$project$Main$Seq,
+		A2(
+			_user$project$Main$Attr,
+			'x',
+			A2(
+				_user$project$Main$Mult,
+				_user$project$Main$Inteiro(10),
+				_user$project$Main$Inteiro(5))),
+		A2(
+			_user$project$Main$Attr,
+			'y',
+			A2(
+				_user$project$Main$Div,
+				_user$project$Main$Inteiro(24),
+				_user$project$Main$Inteiro(2)))),
 	A2(
 		_user$project$Main$Attr,
 		'ret',
 		A2(
 			_user$project$Main$Add,
 			_user$project$Main$Var('x'),
-			_user$project$Main$Inteiro(9))));
+			_user$project$Main$Var('y'))));
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {

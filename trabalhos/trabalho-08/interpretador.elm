@@ -67,7 +67,9 @@ p2 = Seq
 
 p3 : Prog
 p3 = Seq
-        (Attr "x"   (Inteiro 11))
-        (Attr "ret" (Add (Var "x") (Inteiro 9)))
+        (Seq
+          (Attr "x" (Mult (Inteiro 10) (Inteiro 5)))
+          (Attr "y" (Div (Inteiro 24) (Inteiro 2))))
+        (Attr "ret" (Add (Var "x") (Var "y")))
 
 main = text (toString (lang p2))
