@@ -7774,36 +7774,16 @@ var _user$project$Main$evalExp = F2(
 				return env(_p0._0);
 			case 'Add':
 				return A2(_user$project$Main$evalExp, _p0._0, env) + A2(_user$project$Main$evalExp, _p0._1, env);
+			case 'Sub':
+				return A2(_user$project$Main$evalExp, _p0._0, env) - A2(_user$project$Main$evalExp, _p0._1, env);
 			case 'Mult':
 				return A2(_user$project$Main$evalExp, _p0._0, env) * A2(_user$project$Main$evalExp, _p0._1, env);
 			default:
 				return (A2(_user$project$Main$evalExp, _p0._0, env) / A2(_user$project$Main$evalExp, _p0._1, env)) | 0;
 		}
 	});
-var _user$project$Main$evalProg = F2(
-	function (s, env) {
-		evalProg:
-		while (true) {
-			var _p1 = s;
-			if (_p1.ctor === 'Seq') {
-				var _v2 = _p1._1,
-					_v3 = A2(_user$project$Main$evalProg, _p1._0, env);
-				s = _v2;
-				env = _v3;
-				continue evalProg;
-			} else {
-				var val = A2(_user$project$Main$evalExp, _p1._1, env);
-				return function (ask) {
-					return _elm_lang$core$Native_Utils.eq(ask, _p1._0) ? val : env(ask);
-				};
-			}
-		}
-	});
 var _user$project$Main$zero = function (ask) {
 	return 0;
-};
-var _user$project$Main$lang = function (p) {
-	return A3(_user$project$Main$evalProg, p, _user$project$Main$zero, 'ret');
 };
 var _user$project$Main$Div = F2(
 	function (a, b) {
@@ -7812,6 +7792,10 @@ var _user$project$Main$Div = F2(
 var _user$project$Main$Mult = F2(
 	function (a, b) {
 		return {ctor: 'Mult', _0: a, _1: b};
+	});
+var _user$project$Main$Sub = F2(
+	function (a, b) {
+		return {ctor: 'Sub', _0: a, _1: b};
 	});
 var _user$project$Main$Add = F2(
 	function (a, b) {
@@ -7823,6 +7807,67 @@ var _user$project$Main$Var = function (a) {
 var _user$project$Main$Inteiro = function (a) {
 	return {ctor: 'Inteiro', _0: a};
 };
+var _user$project$Main$While = F2(
+	function (a, b) {
+		return {ctor: 'While', _0: a, _1: b};
+	});
+var _user$project$Main$evalProg = F2(
+	function (s, env) {
+		evalProg:
+		while (true) {
+			var _p1 = s;
+			switch (_p1.ctor) {
+				case 'Seq':
+					var _v2 = _p1._1,
+						_v3 = A2(_user$project$Main$evalProg, _p1._0, env);
+					s = _v2;
+					env = _v3;
+					continue evalProg;
+				case 'Attr':
+					var val = A2(_user$project$Main$evalExp, _p1._1, env);
+					return function (ask) {
+						return _elm_lang$core$Native_Utils.eq(ask, _p1._0) ? val : env(ask);
+					};
+				case 'If':
+					if (!_elm_lang$core$Native_Utils.eq(
+						A2(_user$project$Main$evalExp, _p1._0, env),
+						0)) {
+						var _v4 = _p1._1,
+							_v5 = env;
+						s = _v4;
+						env = _v5;
+						continue evalProg;
+					} else {
+						var _v6 = _p1._2,
+							_v7 = env;
+						s = _v6;
+						env = _v7;
+						continue evalProg;
+					}
+				default:
+					var _p3 = _p1._1;
+					var _p2 = _p1._0;
+					if (!_elm_lang$core$Native_Utils.eq(
+						A2(_user$project$Main$evalExp, _p2, env),
+						0)) {
+						var _v8 = A2(_user$project$Main$While, _p2, _p3),
+							_v9 = A2(_user$project$Main$evalProg, _p3, env);
+						s = _v8;
+						env = _v9;
+						continue evalProg;
+					} else {
+						return env;
+					}
+			}
+		}
+	});
+var _user$project$Main$lang = function (p) {
+	return A3(_user$project$Main$evalProg, p, _user$project$Main$zero, 'ret');
+};
+var _user$project$Main$If = F3(
+	function (a, b, c) {
+		return {ctor: 'If', _0: a, _1: b, _2: c};
+	});
 var _user$project$Main$Seq = F2(
 	function (a, b) {
 		return {ctor: 'Seq', _0: a, _1: b};
@@ -7832,17 +7877,55 @@ var _user$project$Main$Attr = F2(
 		return {ctor: 'Attr', _0: a, _1: b};
 	});
 var _user$project$Main$p1 = A2(
-	_user$project$Main$Attr,
-	'ret',
+	_user$project$Main$Seq,
 	A2(
-		_user$project$Main$Add,
-		_user$project$Main$Inteiro(10),
-		_user$project$Main$Inteiro(9)));
+		_user$project$Main$Attr,
+		'x',
+		A2(
+			_user$project$Main$Sub,
+			_user$project$Main$Inteiro(8),
+			_user$project$Main$Inteiro(11))),
+	A3(
+		_user$project$Main$If,
+		_user$project$Main$Var('x'),
+		A2(
+			_user$project$Main$Attr,
+			'ret',
+			_user$project$Main$Var('x')),
+		A2(
+			_user$project$Main$Attr,
+			'ret',
+			_user$project$Main$Inteiro(100))));
+var _user$project$Main$p2 = A2(
+	_user$project$Main$Seq,
+	A2(
+		_user$project$Main$Attr,
+		'i',
+		_user$project$Main$Inteiro(10)),
+	A2(
+		_user$project$Main$While,
+		_user$project$Main$Var('i'),
+		A2(
+			_user$project$Main$Seq,
+			A2(
+				_user$project$Main$Attr,
+				'ret',
+				A2(
+					_user$project$Main$Add,
+					_user$project$Main$Var('ret'),
+					_user$project$Main$Inteiro(2))),
+			A2(
+				_user$project$Main$Attr,
+				'i',
+				A2(
+					_user$project$Main$Sub,
+					_user$project$Main$Var('i'),
+					_user$project$Main$Inteiro(1))))));
 var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	_elm_lang$html$Html$text(
 		_elm_lang$core$Basics$toString(
-			_user$project$Main$lang(_user$project$Main$p1))));
-var _user$project$Main$p2 = A2(
+			_user$project$Main$lang(_user$project$Main$p2))));
+var _user$project$Main$p3 = A2(
 	_user$project$Main$Seq,
 	A2(
 		_user$project$Main$Attr,
