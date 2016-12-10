@@ -98,10 +98,10 @@ lang p = ((evalProg p zero) "ret")
 
 p1: Prog
 p1 = Seq
-          (Attr "x" (Sub (Inteiro 8) (Inteiro 11)))
-          (If (Var "x")
-              (Attr "ret" (Var "x"))
-              (Attr "ret" (Inteiro 100)))
+        (Attr "x" (Sub (Inteiro 8) (Inteiro 11)))
+        (If (Var "x")
+            (Attr "ret" (Var "x"))
+            (Attr "ret" (Inteiro 100)))
 
 p2 : Prog
 p2 = Seq
@@ -132,4 +132,31 @@ p5 = Seq
             (Attr "ret" (Mult (Var "x") (Inteiro 2)))
             (Attr "ret" (Div (Var "x") (Inteiro 2))))
 
-main = text (toString (lang p5))
+p6 : Prog
+p6 = Seq
+        (Seq
+            (Attr "x" (Inteiro 5))
+            (Attr "y" (Inteiro 27)))
+        (If (And (Eq (Mod (Var "x") (Inteiro 2)) (Inteiro 0)) (Gt (Var "y") (Var "x")))
+            (Attr "ret" (Add (Var "x") (Var "y")))
+            (Attr "ret" (E (Var "x") (Inteiro 2))))
+
+p7 : Prog
+p7 = Seq
+        (Seq
+            (Attr "x" (Inteiro 21))
+            (Attr "y" (Inteiro 9)))
+        (If (Or (Eq (Mod (Var "x") (Inteiro 7)) (Inteiro 0)) (Gt (Var "y") (Var "x")))
+            (Attr "ret" (Add (Var "x") (Var "y")))
+            (Attr "ret" (E (Var "x") (Inteiro 2))))
+
+p8 : Prog
+p8 = Seq
+        (Seq
+            (Attr "x" (Inteiro 21))
+            (Attr "y" (Inteiro 10)))
+        (If (Not (Lt (Var "x") (Var "y")))
+            (Attr "ret" (Sub (Var "x") (Var "y")))
+            (Attr "ret" (Mult (Var "x") (Var "y"))))
+
+main = text (toString (lang p8))
