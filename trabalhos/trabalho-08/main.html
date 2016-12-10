@@ -7778,13 +7778,94 @@ var _user$project$Main$evalExp = F2(
 				return A2(_user$project$Main$evalExp, _p0._0, env) - A2(_user$project$Main$evalExp, _p0._1, env);
 			case 'Mult':
 				return A2(_user$project$Main$evalExp, _p0._0, env) * A2(_user$project$Main$evalExp, _p0._1, env);
-			default:
+			case 'Div':
 				return (A2(_user$project$Main$evalExp, _p0._0, env) / A2(_user$project$Main$evalExp, _p0._1, env)) | 0;
+			case 'Mod':
+				return A2(
+					_elm_lang$core$Basics_ops['%'],
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					A2(_user$project$Main$evalExp, _p0._1, env));
+			case 'E':
+				return Math.pow(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					A2(_user$project$Main$evalExp, _p0._1, env));
+			case 'Gt':
+				return (_elm_lang$core$Native_Utils.cmp(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					A2(_user$project$Main$evalExp, _p0._1, env)) > 0) ? 1 : 0;
+			case 'Lt':
+				return (_elm_lang$core$Native_Utils.cmp(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					A2(_user$project$Main$evalExp, _p0._1, env)) < 0) ? 1 : 0;
+			case 'Eq':
+				return _elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					A2(_user$project$Main$evalExp, _p0._1, env)) ? 1 : 0;
+			case 'And':
+				return ((!_elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					0)) && (!_elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._1, env),
+					0))) ? 1 : 0;
+			case 'Or':
+				return ((!_elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					0)) || (!_elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._1, env),
+					0))) ? 1 : 0;
+			case 'Xor':
+				return A2(
+					_elm_lang$core$Basics$xor,
+					!_elm_lang$core$Native_Utils.eq(
+						A2(_user$project$Main$evalExp, _p0._0, env),
+						0),
+					!_elm_lang$core$Native_Utils.eq(
+						A2(_user$project$Main$evalExp, _p0._1, env),
+						0)) ? 1 : 0;
+			default:
+				return (!_elm_lang$core$Native_Utils.eq(
+					A2(_user$project$Main$evalExp, _p0._0, env),
+					0)) ? 0 : 1;
 		}
 	});
 var _user$project$Main$zero = function (ask) {
 	return 0;
 };
+var _user$project$Main$Not = function (a) {
+	return {ctor: 'Not', _0: a};
+};
+var _user$project$Main$Xor = F2(
+	function (a, b) {
+		return {ctor: 'Xor', _0: a, _1: b};
+	});
+var _user$project$Main$Or = F2(
+	function (a, b) {
+		return {ctor: 'Or', _0: a, _1: b};
+	});
+var _user$project$Main$And = F2(
+	function (a, b) {
+		return {ctor: 'And', _0: a, _1: b};
+	});
+var _user$project$Main$Eq = F2(
+	function (a, b) {
+		return {ctor: 'Eq', _0: a, _1: b};
+	});
+var _user$project$Main$Lt = F2(
+	function (a, b) {
+		return {ctor: 'Lt', _0: a, _1: b};
+	});
+var _user$project$Main$Gt = F2(
+	function (a, b) {
+		return {ctor: 'Gt', _0: a, _1: b};
+	});
+var _user$project$Main$E = F2(
+	function (a, b) {
+		return {ctor: 'E', _0: a, _1: b};
+	});
+var _user$project$Main$Mod = F2(
+	function (a, b) {
+		return {ctor: 'Mod', _0: a, _1: b};
+	});
 var _user$project$Main$Div = F2(
 	function (a, b) {
 		return {ctor: 'Div', _0: a, _1: b};
@@ -7901,10 +7982,13 @@ var _user$project$Main$p2 = A2(
 	A2(
 		_user$project$Main$Attr,
 		'i',
-		_user$project$Main$Inteiro(10)),
+		_user$project$Main$Inteiro(20)),
 	A2(
 		_user$project$Main$While,
-		_user$project$Main$Var('i'),
+		A2(
+			_user$project$Main$Gt,
+			_user$project$Main$Var('i'),
+			_user$project$Main$Inteiro(0)),
 		A2(
 			_user$project$Main$Seq,
 			A2(
@@ -7921,10 +8005,6 @@ var _user$project$Main$p2 = A2(
 					_user$project$Main$Sub,
 					_user$project$Main$Var('i'),
 					_user$project$Main$Inteiro(1))))));
-var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
-	_elm_lang$html$Html$text(
-		_elm_lang$core$Basics$toString(
-			_user$project$Main$lang(_user$project$Main$p2))));
 var _user$project$Main$p3 = A2(
 	_user$project$Main$Seq,
 	A2(
@@ -7950,6 +8030,60 @@ var _user$project$Main$p3 = A2(
 			_user$project$Main$Add,
 			_user$project$Main$Var('x'),
 			_user$project$Main$Var('y'))));
+var _user$project$Main$p4 = A3(
+	_user$project$Main$If,
+	A2(
+		_user$project$Main$Gt,
+		_user$project$Main$Inteiro(10),
+		_user$project$Main$Inteiro(20)),
+	A2(
+		_user$project$Main$Attr,
+		'ret',
+		_user$project$Main$Inteiro(10)),
+	A2(
+		_user$project$Main$Attr,
+		'ret',
+		_user$project$Main$Inteiro(20)));
+var _user$project$Main$p5 = A2(
+	_user$project$Main$Seq,
+	A3(
+		_user$project$Main$If,
+		A2(
+			_user$project$Main$Lt,
+			_user$project$Main$Inteiro(30),
+			_user$project$Main$Inteiro(20)),
+		A2(
+			_user$project$Main$Attr,
+			'x',
+			_user$project$Main$Inteiro(10)),
+		A2(
+			_user$project$Main$Attr,
+			'x',
+			_user$project$Main$Inteiro(20))),
+	A3(
+		_user$project$Main$If,
+		A2(
+			_user$project$Main$Eq,
+			_user$project$Main$Var('x'),
+			_user$project$Main$Inteiro(10)),
+		A2(
+			_user$project$Main$Attr,
+			'ret',
+			A2(
+				_user$project$Main$Mult,
+				_user$project$Main$Var('x'),
+				_user$project$Main$Inteiro(2))),
+		A2(
+			_user$project$Main$Attr,
+			'ret',
+			A2(
+				_user$project$Main$Div,
+				_user$project$Main$Var('x'),
+				_user$project$Main$Inteiro(2)))));
+var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
+	_elm_lang$html$Html$text(
+		_elm_lang$core$Basics$toString(
+			_user$project$Main$lang(_user$project$Main$p5))));
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {

@@ -10,6 +10,15 @@ type Exp = Inteiro Int
          | Sub Exp Exp
          | Mult Exp Exp
          | Div Exp Exp
+         | Mod Exp Exp
+         | E Exp Exp
+         | Gt Exp Exp
+         | Lt Exp Exp
+         | Eq Exp Exp
+         | And Exp Exp
+         | Or Exp Exp
+         | Xor Exp Exp
+         | Not Exp
 
 type Prog = Attr String Exp
           | Seq Prog Prog
@@ -25,6 +34,43 @@ evalExp exp env =
         Sub exp1 exp2  -> (evalExp exp1 env) - (evalExp exp2 env)
         Mult exp1 exp2 -> (evalExp exp1 env) * (evalExp exp2 env)
         Div exp1 exp2  -> (evalExp exp1 env) // (evalExp exp2 env)
+        Mod exp1 exp2  -> (evalExp exp1 env) % (evalExp exp2 env)
+        E exp1 exp2    -> (evalExp exp1 env) ^ (evalExp exp2 env)
+        Gt exp1 exp2   ->
+            if (evalExp exp1 env) > (evalExp exp2 env) then
+                1
+            else
+                0
+        Lt exp1 exp2   ->
+            if (evalExp exp1 env) < (evalExp exp2 env) then
+                1
+            else
+                0
+        Eq exp1 exp2   ->
+            if (evalExp exp1 env) == (evalExp exp2 env) then
+                1
+            else
+                0
+        And exp1 exp2  ->
+            if (evalExp exp1 env) /= 0 && (evalExp exp2 env) /= 0 then
+                1
+            else
+                0
+        Or exp1 exp2   ->
+            if (evalExp exp1 env) /= 0 || (evalExp exp2 env) /= 0 then
+                1
+            else
+                0
+        Xor exp1 exp2  ->
+            if xor ((evalExp exp1 env) /= 0) ((evalExp exp2 env) /= 0) then
+                1
+            else
+                0
+        Not exp        ->
+            if (evalExp exp env) /= 0 then
+                0
+            else
+                1
 
 evalProg : Prog -> Env -> Env
 evalProg s env =
@@ -59,8 +105,8 @@ p1 = Seq
 
 p2 : Prog
 p2 = Seq
-        (Attr "i" (Inteiro 10))
-        (While (Var "i")
+        (Attr "i" (Inteiro 20))
+        (While (Gt (Var "i") (Inteiro 0))
           (Seq
             (Attr "ret" (Add (Var "ret") (Inteiro 2)))
             (Attr "i" (Sub (Var "i") (Inteiro 1)))))
@@ -72,4 +118,18 @@ p3 = Seq
           (Attr "y" (Div (Inteiro 24) (Inteiro 2))))
         (Attr "ret" (Add (Var "x") (Var "y")))
 
-main = text (toString (lang p2))
+p4 : Prog
+p4 = If (Gt (Inteiro 10) (Inteiro 20))
+            (Attr "ret" (Inteiro 10))
+            (Attr "ret" (Inteiro 20))
+
+p5 : Prog
+p5 = Seq
+        (If (Lt (Inteiro 30) (Inteiro 20))
+            (Attr "x" (Inteiro 10))
+            (Attr "x" (Inteiro 20)))
+        (If (Eq (Var "x") (Inteiro 10))
+            (Attr "ret" (Mult (Var "x") (Inteiro 2)))
+            (Attr "ret" (Div (Var "x") (Inteiro 2))))
+
+main = text (toString (lang p5))
